@@ -4,9 +4,11 @@ import { v4 as generateID } from 'uuid';
 import bcrypt from "bcryptjs";
 import { useContext } from "react";
 import { Link } from "react-router";
-import styled from "styled-components";
+// import styled from "styled-components";
 import { User } from "../../types";
 import UsersContext from "../contexts/UsersContext";
+import Header from "../UI/organism/Header";
+import Footer from "../UI/organism/Footer";
 
 
 type InitValues = Omit<User, 'id' | 'passwordText'> & { passwordRepeat : string };
@@ -74,6 +76,9 @@ const Register = () => {
       });
 
       return (
+        <>
+        <Header />
+        <main>
         <section>
           <h2>Create account</h2>
           <Formik
@@ -151,6 +156,9 @@ const Register = () => {
             Already have an account? <Link to="/login">Login</Link>
           </p>
         </section>
+        </main>
+       <Footer />
+       </>
       );
     };
    

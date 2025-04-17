@@ -7,6 +7,9 @@ import { useState } from 'react';
 
 import UsersContext from '../contexts/UsersContext';
 import { User, UsersContextTypes } from '../../types';
+import Header from "../UI/organism/Header";
+import Footer from "../UI/organism/Footer";
+
 
 const Login = () => {
   const { users, setLoggedInUser } = useContext(UsersContext) as UsersContextTypes;
@@ -52,6 +55,9 @@ const Login = () => {
   });
 
     return (
+    <>
+    <Header />
+    <main>
     <section>
       <h2>Login</h2>
       <form onSubmit={formik.handleSubmit}>
@@ -89,6 +95,9 @@ const Login = () => {
         {error && <p style={{ color: 'red' }}>{error}</p>}
       </form>
     </section>
+    </main>
+  <Footer />
+  </>
   );
 }
    

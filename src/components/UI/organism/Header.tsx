@@ -1,16 +1,15 @@
-import { Link, NavLink, useNavigate } from "react-router";
+import { Link, NavLink } from "react-router";
 import styled from 'styled-components';
-import { useContext } from "react";
+// import { useContext } from "react";
 
 import logo from '../../assets/logo.jpg';
 
 const Header = () => {
-  const navigate = useNavigate();
 
   return (
-    <section>
+    <header>
      <Link to="/">
-      <Logo src={logo} alt="Go to Home" />
+      <Logo src={logo} alt="logo" />
      </Link>
       <nav>
         <ul>
@@ -19,12 +18,14 @@ const Header = () => {
           <li><Link to="/register">Register</Link></li>
         </ul>
       </nav>
-    </section>
+    </header>
   )
 };
 
 const Logo = styled.img`
   display: block;
   margin: 2rem auto 1rem auto;
-  width: 20px;
+  width: 100px;
 `;
+
+export default Header;

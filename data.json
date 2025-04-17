@@ -1,0 +1,103 @@
+{
+    "users": [
+    {
+      "id": "fds6g54",
+      "username": "Karlsonas",
+      "email": "karlsonas@gmail.com",
+      "password": "$2b$10$8oaZJwGY1Jksm5LnDrZCJugd3X6uSKoZiuAgl4CuY9ypv2UsWDr76",
+      "passwordText": "LabasRytas321&",
+      "role": "Admin"
+    },
+    {
+      "id": "fds6g55",
+      "username": "Mažylis",
+      "email": "mazas@gmail.com",
+      "password": "$2b$10$JNHc8b4OHol1gGWgcofNT.8WsZfUR8aINw/ru.rtZDHsx150x5TiK",
+      "passwordText": "LabasVakaras123&",
+      "role": "User"
+    },
+    {
+      "id": "cfdfd009-c134-4633-9644-9df71c3978df",
+      "name": "Draugas",
+      "email": "draugas@gmail.com",
+      "password": "$2b$10$S1CUoK8zX39guOJRGwmaJeAldlCsQcdVAqYQqW33t0ZAdZKSXFU.S",
+      "passwordText": "Draugas1234@",
+      "role": "User"
+    }
+  ],
+  "cars": [
+    {
+      "id": "id121",
+      "brand": "Nissan",
+      "name": "Skyline GT-R KPGC10 Hakosuka",
+      "yearOfManufacture": "1969 - 1972",
+      "engine": [
+        "2.0 L DOHC S20 Inline-six engine",
+        "119 kW (160 hp) at 7,000 rpme",
+        "176 N⋅m at 5,600 rpm"
+      ],
+      "pic": "https://upload.wikimedia.org/wikipedia/commons/b/b9/Nissan_SKYLINE_2Door_Hard-top_2000GT-R_MY1972_%281%29.jpg"
+    },
+    {
+        "id": "id122",
+        "brand": "Nissan",
+        "name": "Skyline GT-R KPGC110 Kenmeri",
+        "yearOfManufacture": "1972 - 1973",
+        "engine": [
+          "2.0 L DOHC S20 Inline-six engine",
+          "119 kW (160 hp) at 7,000 rpme",
+          "178 N⋅m at 5,600 rpm"
+        ],
+        "pic": "https://upload.wikimedia.org/wikipedia/commons/f/f5/GT-RC110.jpg"
+      },
+      {
+        "id": "id123",
+        "brand": "Nissan",
+        "name": "Skyline GT-R R32",
+        "yearOfManufacture": "1989 - 1994",
+        "engine": [
+          "2.6 L twin-turbocharged RB26DETT I6",
+          "206 kW kW (276 hp) at 6,800 rpme",
+          "353 N⋅m at 5,600 rpm"
+        ],
+        "pic": "https://upload.wikimedia.org/wikipedia/commons/4/42/Nissan_Skyline_R32_GT-R_001.jpg"
+      },
+      {
+        "id": "id124",
+        "brand": "Nissan",
+        "name": "Skyline GT-R R33",
+        "yearOfManufacture": "1995 - 1998",
+        "engine": [
+          "2.6 L twin-turbocharged RB26DETT I6",
+          "206 kW kW (276 hp) at 6,800 rpme",
+          "353 N⋅m at 5,600 rpm"
+        ],
+        "pic": "https://upload.wikimedia.org/wikipedia/commons/7/7d/Nissan_Skyline_R33_GT-R_001.jpg"
+      },
+      {
+        "id": "id125",
+        "brand": "Nissan",
+        "name": "Skyline GT-R R34",
+        "yearOfManufacture": "1999 - 2002",
+        "engine": [
+          "2.6 L twin-turbocharged RB26DETT I6",
+          "206 kW kW (276 hp) at 6,800 rpme",
+          "353 N⋅m at 5,600 rpm"
+        ],
+        "pic": "https://upload.wikimedia.org/wikipedia/commons/7/73/Nissan_Skyline_R34_GT-R_N%C3%BCr_001.jpg"
+      },
+      {
+        "id": "id126",
+        "brand": "Nissan",
+        "name": "GT-R R35 Godzilla",
+        "yearOfManufacture": "2007 - 2025",
+        "engine": [
+          "3.8 L twin-turbocharged VR38DETT V6",
+          "353 kW kW (480 hp) at 7,000 rpme",
+          "588 N⋅m at 3,200 - 5200 rpm"
+        ],
+        "pic": "https://upload.wikimedia.org/wikipedia/commons/7/7c/2018_Nissan_GT-R_Premium_in_Super_Silver%2C_Front_Right%2C_10-11-2022.jpg"
+      }
+    
+  ]
+}
