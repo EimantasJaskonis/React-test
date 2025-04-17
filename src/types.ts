@@ -1,10 +1,25 @@
-export type User = {
+  export type User = {
     id: string;
     name: string;
     email: string;
     password: string;
     passwordText: string;
     role: string;
+    avatar?: string;
+    saved?: string[];
+  };
+
+  export type Type = {
+    id: string;
+    creatorId: string;
+    creatorName: string;
+    creatorAvatar: string;
+    createdAt: string;
+    brand: string;
+    name: string;
+    yearOfManufacture: string;
+    engine: string[];
+    pic?: string;
   };
   
   export type ChildrenElementType = {
