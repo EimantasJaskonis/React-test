@@ -29,13 +29,13 @@ const Login = () => {
         bcrypt.compareSync(values.password, user.password)
       );
       if(foundUser){
-        console.log('OK')
+        // console.log('OK')
         setLoggedInUser(foundUser);
         resetForm();
         setError('');
         navigate('/');
       }  else {
-        console.log('NOT OK')
+        // console.log('NOT OK')
         setError('Wrong email or password');
       }
     },

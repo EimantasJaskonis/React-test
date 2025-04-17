@@ -5,32 +5,28 @@
       "name": "Karlsonas",
       "email": "karlsonas@gmail.com",
       "password": "$2b$10$8oaZJwGY1Jksm5LnDrZCJugd3X6uSKoZiuAgl4CuY9ypv2UsWDr76",
-      "passwordText": "LabasRytas321&",
-      "role": "Admin"
+      "passwordText": "LabasRytas321&"
     },
     {
       "id": "fds6g55",
       "name": "Mažylis",
       "email": "mazas@gmail.com",
       "password": "$2b$10$JNHc8b4OHol1gGWgcofNT.8WsZfUR8aINw/ru.rtZDHsx150x5TiK",
-      "passwordText": "LabasVakaras123&",
-      "role": "User"
+      "passwordText": "LabasVakaras123&"
     },
     {
       "id": "cfdfd009-c134-4633-9644-9df71c3978df",
       "name": "Draugas",
       "email": "draugas@gmail.com",
       "password": "$2b$10$S1CUoK8zX39guOJRGwmaJeAldlCsQcdVAqYQqW33t0ZAdZKSXFU.S",
-      "passwordText": "Draugas1234@",
-      "role": "User"
+      "passwordText": "Draugas1234@"
     },
     {
       "id": "940a96d7-c2a6-45a6-83f8-04968a192aca",
       "name": "Skyline",
       "email": "skyline@gmail.com",
       "password": "$2b$10$I94jjJhHGzAKWbrBhmsoXe4X11tR9I5Lrs./WT/vOXySXPy19MYRy",
-      "passwordText": "Opelis1234!",
-      "role": ""
+      "passwordText": "Opelis1234!"
     }
   ],
   "cars": [

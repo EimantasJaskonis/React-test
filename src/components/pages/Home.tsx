@@ -37,10 +37,10 @@ const { loggedInUser } = context;
     <>
       <Header />
       <Main>
-        <h1>Nissan Skyline History</h1>
+        <h1>JDM Cars</h1>
 
         {isLoading ? (
-          <img src="/loading.gif" alt="Loading..." />
+          <img src="../assets/loading.gif" alt="Loading..." />
         ) : (
           <>
             {users.length > 0 ? (
@@ -48,7 +48,6 @@ const { loggedInUser } = context;
                 <div key={user.id}>
                   <h3>{user.name || user.name}</h3>
                   <p>{user.email}</p>
-                  <p>{user.role || "No role"}</p>
                 </div>
               ))
             ) : (

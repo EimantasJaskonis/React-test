@@ -9,7 +9,7 @@
     saved?: string[];
   };
 
-  export type Type = {
+  export type CardType = {
     id: string;
     creatorId: string;
     creatorName: string;
@@ -21,9 +21,15 @@
     engine: string[];
     pic?: string;
   };
+
+  export type Props = {
+    card: CardType;
+    onDelete: (id: string) => void;
+    onSave: (id: string) => void;
+  };
   
   export type ChildrenElementType = {
-    children: React.ReactElement;
+    children: React.ReactNode;
   };
   
   export type UsersReducerActionTypes =
@@ -33,7 +39,13 @@
   
   export type UsersContextTypes = {
     loggedInUser: User | null;
+    logout: () => void;
     setLoggedInUser: React.Dispatch<React.SetStateAction<User | null>>;
     users: User[];
     dispatch: React.Dispatch<UsersReducerActionTypes>;
   };
+
+  export type UsersProviderProps = {
+    children: React.ReactNode;
+  };
+  

@@ -29,8 +29,12 @@ const UsersProvider = ({ children }: ChildrenElementType) => {
       .catch(error => console.error('Failed to fetch users:', error));
   }, []);
 
+  const logout = () => {
+    setLoggedInUser(null);
+  };
+
   return (
-    <UsersContext.Provider value={{ loggedInUser, setLoggedInUser, users, dispatch }}>
+    <UsersContext.Provider value={{ loggedInUser, setLoggedInUser, users, dispatch, logout }}>
       {children}
     </UsersContext.Provider>
   );
