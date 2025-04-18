@@ -63,7 +63,7 @@ const StyledCard = styled(Card)`
   padding: 0.5rem;
   height: 550px;
   border: 1px solid #ccc;
-  background-color: #fff;
+  background-color: rgb(100, 100, 100);
   display: flex;
   flex-direction: column;
   justify-content: space-between;

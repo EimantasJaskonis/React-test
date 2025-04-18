@@ -155,7 +155,7 @@
       "creatorId": "940a96d7-c2a6-45a6-83f8-04968a192aca",
       "creatorName": "Skyline",
       "creatorAvatar": "",
-      "createdAt": "2025-04-18T07:04:28.287Z",
+      "createdAt": "2025-04-18T11:55:04.527Z",
       "brand": "Nissan",
       "name": "Silvia S14",
       "yearOfManufacture": "1994 – 2000 ",
@@ -187,16 +187,48 @@
       "creatorId": "72606451-1bb5-49fd-8261-f46f08c2f398",
       "creatorName": "Kirvis",
       "creatorAvatar": "",
-      "createdAt": "2025-04-18T09:33:56.972Z",
+      "createdAt": "2025-04-18T09:49:28.832Z",
       "brand": "Toyota",
       "name": "Supra A80",
       "yearOfManufacture": "1993 - 2002",
       "engine": [
-        "3.0 2JZ-GTE twin-turbo I6",
+        "3.0 L 2JZ-GTE twin-turbo I6",
         "239 kW (321 hp) at 5,600 rpm",
         "427 N⋅m at 4,000 rpm"
       ],
       "pic": "https://upload.wikimedia.org/wikipedia/commons/7/72/1994_Toyota_Supra_Sport_Roof_in_Red%2C_front_left.jpg"
+    },
+    {
+      "id": "0c02d3f6-c962-417d-9099-2b7719a4ab14",
+      "creatorId": "72606451-1bb5-49fd-8261-f46f08c2f398",
+      "creatorName": "Kirvis",
+      "creatorAvatar": "",
+      "createdAt": "2025-04-18T09:49:39.184Z",
+      "brand": "Toyota",
+      "name": "Celica Supra A60",
+      "yearOfManufacture": "1982 – 1986",
+      "engine": [
+        "2.8 L 5M-GE/GEU DOHC I6",
+        "118 kW (160 hp)",
+        "203 N⋅m"
+      ],
+      "pic": "https://upload.wikimedia.org/wikipedia/commons/8/8c/1985_Toyota_Supra_P-type_in_Super_White%2C_front_right.jpg"
+    },
+    {
+      "id": "cbf895b1-7446-4e6a-b82c-61d8bdd9773b",
+      "creatorId": "72606451-1bb5-49fd-8261-f46f08c2f398",
+      "creatorName": "Kirvis",
+      "creatorAvatar": "",
+      "createdAt": "2025-04-18T09:49:46.624Z",
+      "brand": "Honda",
+      "name": "NSX NA1/2",
+      "yearOfManufacture": "1991 - 2006",
+      "engine": [
+        "3.0 L Honda C30A V6 rear mid-engine",
+        "201 kW (274 AG)",
+        "285 N⋅m"
+      ],
+      "pic": "https://upload.wikimedia.org/wikipedia/commons/0/09/Honda_NSX_red.jpg"
     }
   ]
 }

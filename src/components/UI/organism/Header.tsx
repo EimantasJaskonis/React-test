@@ -45,7 +45,6 @@ const Header = () => {
   );
 };
 
-
 const Logo = styled.img`
   display: block;
   margin: 2rem auto 1rem auto;
@@ -100,7 +99,6 @@ const ButtonLink = styled(Link)<ButtonLinkProps>`
   font-size: ${({ fontSize }) => fontSize || '0.84rem'};
   line-height: 1;
   
-
   border: 1px solid buttonface;
   border-radius: ${({ borderRadius }) => borderRadius || '2.5px'};
   background-color: buttonface;

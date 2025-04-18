@@ -35,7 +35,7 @@ const User = () => {
   }, [loggedInUser]);
 
   const handleEdit = (id: string) => {
-    navigate(`/edit/${id}`);
+    navigate(`/edit/${id}`, { state: { from: '/user' } });
   };
 
   const confirmDelete = (id: string) => {
@@ -79,7 +79,7 @@ const User = () => {
       .then(() => {
         setLoggedInUser(updatedUser);
         const updatedUsers = users.map(u => u.id === updatedUser.id ? updatedUser : u);
-        dispatch({ type: "setData", payload: updatedUsers });
+        dispatch({ type: "setData", data: updatedUsers }); 
       })
       .catch(err => console.error("Save failed:", err));
   };
@@ -89,7 +89,7 @@ const User = () => {
       <>
         <Header />
         <Main>
-          <p>Login to view your account</p>
+          <p>Login to view your account.</p>
         </Main>
         <Footer />
       </>
@@ -152,10 +152,6 @@ const CardGrid = styled.div`
 
 const CardWrapper = styled.div`
   width: 300px;
-  border: 1px solid #ccc;
-  padding: 12px;
-  box-sizing: border-box;
-  border-radius: 8px;
 `;
 
 const ModalOverlay = styled.div`
