@@ -1,45 +1,88 @@
-import React, { useState, useContext } from 'react';
-import UsersContext from '../contexts/UsersContext';
-// import { User as UserType } from '../../types';
+import { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
+import Header from '../UI/organism/Header';
+import Footer from '../UI/organism/Footer';
+import UsersContext from '../contexts/UsersContext';
+import { CardType } from '../../types';
+import CarsCard from '../UI/molecules/CarsCard';
 
-function UserPage() {
-    const { loggedInUser } = useContext(UsersContext);
-    const [avatar, setAvatar] = useState(loggedInUser?.avatar || '');
-  
-    const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      const file = e.target.files?.[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onloadend = () => {
-          const result = reader.result as string;
-          setAvatar(result);
-        };
-        reader.readAsDataURL(file);
-      }
-    };
+const User = () => {
+  const context = useContext(UsersContext);
+  if (!context) throw new Error('UsersContext must be used within a Provider');
 
+  const { loggedInUser } = context;
+  const [savedCards, setSavedCards] = useState<CardType[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (!loggedInUser) return;
+
+    fetch('http://localhost:8080/cars')
+      .then(res => res.json())
+      .then((data: CardType[]) => {
+        const filtered = data.filter(card => loggedInUser.saved?.includes(card.id));
+        setSavedCards(filtered);
+        setLoading(false);
+      })
+      .catch(error => {
+        console.error('Error...', error);
+        setLoading(false);
+      });
+  }, [loggedInUser]);
+
+  if (!loggedInUser) {
     return (
-        <UserWrapper>
-          <h2>{loggedInUser?.name}'s Profile</h2>
-          <AvatarUploadForm>
-            <input type="file" onChange={handleAvatarChange} />
-            <img src={avatar || '/default-avatar.png'} alt="Avatar" width="100" height="100" />
-            <button type="submit">Save Avatar</button>
-          </AvatarUploadForm>
-        </UserWrapper>
-      );
-    }
+      <>
+        <Header />
+        <Main>
+          <p>Login to view saved cards</p>
+        </Main>
+        <Footer />
+      </>
+    );
+  }
 
-export default UserPage;
+  return (
+    <>
+      <Header />
+      <Main>
+        <h2>JDM Cars</h2>
+        {loading ? (
+          <img src="../assets/loading.gif" alt="Kraunama..." />
+        ) : savedCards.length === 0 ? (
+          <p>Empty</p>
+        ) : (
+          <CardGrid>
+            {savedCards.map(card => (
+              <CardWrapper key={card.id}>
+                <CarsCard card={card} />
+              </CardWrapper>
+            ))}
+          </CardGrid>
+        )}
+      </Main>
+      <Footer />
+    </>
+  );
+};
 
-const UserWrapper = styled.div`
-  padding: 2rem;
-  background-color: #f4f4f4;
+export default User;
+
+const Main = styled.main`
+  padding: 20px;
 `;
 
-const AvatarUploadForm = styled.form`
+const CardGrid = styled.div`
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-top: 40px;
+`;
+
+const CardWrapper = styled.div`
+  width: 300px;
+  border: 1px solid #ccc;
+  padding: 12px;
+  box-sizing: border-box;
+  border-radius: 8px;
 `;
