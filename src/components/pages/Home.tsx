@@ -61,7 +61,7 @@ const Home = () => {
 
               Japanese domestic market vehicles may differ greatly from the cars that Japanese manufacturers build for export and vehicles derived from the same platforms built in other countries. The Japanese car owner looks more toward innovation than long-term ownership which forces Japanese carmakers to refine new technologies and designs first in domestic vehicles. For instance, the 2003 Honda Inspire featured the first application of Honda's Variable Cylinder Management. However, the 2003 Honda Accord V6, which was the same basic vehicle, primarily intended for the North American market, did not feature VCM, which had a poor reputation after Cadillac's attempt in the 1980s with the V8-6-4 engine. VCM was successfully introduced to the Accord V6 in its redesign for 2008.
 
-              In 1988, JDM cars were limited by voluntary self-restraints among manufacturers to 280 PS (276 hp; 206 kW) and a top speed of 300 km/h (186 mph), limits imposed by the Japan Automobile Manufacturers Association (JAMA) for safety. The horsepower limit was lifted in 2004 [citation needed] but the speed limit of 180 km/h (112 mph) remains.
+              In 1988, JDM cars were limited by voluntary self-restraints among manufacturers to 280 PS (276 hp; 206 kW) and a top speed of 180 km/h (112 mph), limits imposed by the Japan Automobile Manufacturers Association (JAMA) for safety. The horsepower limit was lifted in 2004 but the speed limit of 180 km/h (112 mph) remains.
               </p>
             </DescriptionWrapper>
             <CardGrid>
