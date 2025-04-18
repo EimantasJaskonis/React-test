@@ -1,165 +1,231 @@
-import { Formik, Form, Field } from "formik";
+import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import { v4 as generateID } from 'uuid';
-import bcrypt from "bcryptjs";
-import { useContext } from "react";
-import { Link } from "react-router";
-// import styled from "styled-components";
-import { User } from "../../types";
-import UsersContext from "../contexts/UsersContext";
-import Header from "../UI/organism/Header";
-import Footer from "../UI/organism/Footer";
+import bcrypt from 'bcryptjs';
+import { useContext, useState } from 'react';
+import { useNavigate } from 'react-router';
 
+import UsersContext from '../contexts/UsersContext';
+import { User } from '../../types';
+import Header from '../UI/organism/Header';
+import Footer from '../UI/organism/Footer';
+import styled from 'styled-components';
+import { Link } from 'react-router';
 
-type InitValues = Omit<User, 'id' | 'passwordText'> & { passwordRepeat : string };
+type InitValues = Omit<User, 'id' | 'passwordText' | 'avatar' | 'saved'> & { passwordRepeat: string };
 
 const Register = () => {
-  const context = useContext(UsersContext);
+  const { dispatch, users, setLoggedInUser } = useContext(UsersContext)!;
+  const navigate = useNavigate();
+  const [modalMessage, setModalMessage] = useState('');
 
-  if (!context) {
-    throw new Error("Register must be used within a UsersProvider");
+  const initValues: InitValues = {
+    name: '',
+    email: '',
+    password: '',
+    passwordRepeat: '',
+    role: ''
   };
-  const { dispatch } = context;
 
-    const initValues: InitValues = {
-        name: '',
-        email: '',
-        password: '',
-        passwordRepeat: '',
-        role: ''
-      };
+  const handleSubmit = (values: InitValues, { resetForm }: { resetForm: () => void }) => {
+    const nameExists = users.some(user => user.name === values.name);
+    const emailExists = users.some(user => user.email === values.email);
 
-      const handleSubmit = (values: InitValues, { resetForm }: { resetForm: () => void }) => {
-        // console.log(values);
-        const newUser: User = {
-        id: generateID(),
-        name: values.name,
-        email: values.email,
-        password: bcrypt.hashSync(values.password, 10),
-        passwordText: values.password,
-        role: values.role
-        // console.log(newUser);
-      };
+    if (nameExists || emailExists) {
+      setModalMessage(nameExists ? 'Username is already taken' : 'Email is already in use');
+      return;
+    }
 
-      fetch("http://localhost:8080/users", {
-        method: "POST",
-        body: JSON.stringify(newUser)
-      });
-  
-      dispatch({ type: 'addNew', newUser });
-  
-      resetForm();
-      };   
+    const newUser: User = {
+      id: generateID(),
+      name: values.name,
+      email: values.email,
+      password: bcrypt.hashSync(values.password, 10),
+      passwordText: values.password,
+      role: values.role,
+      avatar: undefined,
+      saved: []
+    };
 
-      const validSchema = Yup.object({
-        name: Yup.string()
-          .min(5, 'Name too short')
-          .max(20, 'Name too long')
-          .trim()
-          .required('Enter your name'),
-        email: Yup.string()
-          .email('Please enter the correct email format')
-          .required('Enter your email'),
-        password: Yup.string()
-          .matches(
-            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/,
-            'The password must contain at least 1 uppercase letter, at least 1 lowercase letter, a special character (@$!%*?&), at least 1 number, and be at least 8 characters long and at least 20 characters long'
-          )
-          .trim()
-          .required('Enter your password'),
-        passwordRepeat: Yup.string()
-          .oneOf([Yup.ref('password')], 'The passwords must match')
-          .trim()
-          .required('Re-enter your password'),
-        role: Yup.string()
-        .optional()
-      });
+    fetch('http://localhost:8080/users', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(newUser)
+    });
 
-      return (
-        <>
-        <Header />
-        <main>
-        <section>
-          <h2>Create account</h2>
-          <Formik
-            initialValues={initValues}
-            onSubmit={handleSubmit}
-            validationSchema={validSchema}
-          >
+    dispatch({ type: 'addNew', newUser });
+    setLoggedInUser(newUser);
+    resetForm();
+    navigate('/');
+  };
+
+  const validSchema = Yup.object({
+    name: Yup.string()
+      .min(5, 'Name too short')
+      .max(20, 'Name too long')
+      .trim()
+      .required('Enter your name'),
+    email: Yup.string()
+      .email('Invalid email format')
+      .required('Enter your email'),
+    password: Yup.string()
+      .matches(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/,
+        'Password must contain uppercase, lowercase, number, symbol and be 8–20 characters'
+      )
+      .required('Enter your password')
+      .trim(),
+    passwordRepeat: Yup.string()
+      .oneOf([Yup.ref('password')], 'Passwords must match')
+      .required('Repeat your password')
+      .trim(),
+    role: Yup.string().optional()
+  });
+
+  return (
+    <PageWrapper>
+      <Header />
+      <ContentWrapper>
+        <FormSection>
+          <h2>Create Account</h2>
+          <Formik initialValues={initValues} validationSchema={validSchema} onSubmit={handleSubmit}>
             {({ errors, submitCount }) => (
-              <Form>
-                <div>
-                  <label htmlFor="name">Your name</label>
-                  <Field
-                    name="name"
-                    id="name"
-                    placeholder="First and last name"
-                    type="text"
-                    autoComplete="name"
-                    $error={submitCount > 0 && !!errors.name}
-                  />
-                  {submitCount > 0 && errors.name && (
-                    <span className="error">{errors.name}</span>
-                  )}
-                </div>
-      
-                <div>
-                  <label htmlFor="email">Email</label>
-                  <Field
-                    name="email"
-                    id="email"
-                    type="email"
-                    autoComplete="email"
-                    $error={submitCount > 0 && !!errors.email}
-                  />
-                  {submitCount > 0 && errors.email && (
-                    <span className="error">{errors.email}</span>
-                  )}
-                </div>
-      
-                <div>
-                 <label htmlFor="password">Password</label>
-                 <Field
-                  name="password"
-                  id="password"
-                  placeholder="at least 8 characters"
-                  type="password"
-                  $error={submitCount > 0 && !!errors.password}
-                  />
-                  {submitCount > 0 && errors.password ? (
-                  <span className="error">{errors.password}</span>
-                  ) : (
-                  <span className="hint">Passwords must be at least 8 characters</span>
+              <StyledForm>
+                <Label htmlFor="name">Name</Label>
+                <StyledField name="name" id="name" placeholder="Full name" $error={submitCount > 0 && !!errors.name} />
+                {submitCount > 0 && errors.name && <Error>{errors.name}</Error>}
+
+                <Label htmlFor="email">Email</Label>
+                <StyledField name="email" id="email" type="email" $error={submitCount > 0 && !!errors.email} />
+                {submitCount > 0 && errors.email && <Error>{errors.email}</Error>}
+
+                <Label htmlFor="password">Password</Label>
+                <StyledField name="password" id="password" type="password" $error={submitCount > 0 && !!errors.password} />
+                {submitCount > 0 && errors.password ? (
+                  <Error>{errors.password}</Error>
+                ) : (
+                  <Hint>Passwords must be at least 8 characters</Hint>
                 )}
-                </div>
-      
-                <div>
-                  <label htmlFor="passwordRepeat">Re-enter password</label>
-                  <Field
-                    name="passwordRepeat"
-                    id="passwordRepeat"
-                    type="password"
-                    autoComplete="password"
-                    $error={submitCount > 0 && !!errors.passwordRepeat}
-                  />
-                  {submitCount > 0 && errors.passwordRepeat && (
-                    <span className="error">{errors.passwordRepeat}</span>
-                  )}
-                </div>
-      
-                <input type="submit" value="Create your account" />
-              </Form>
+
+                <Label htmlFor="passwordRepeat">Repeat Password</Label>
+                <StyledField name="passwordRepeat" id="passwordRepeat" type="password" $error={submitCount > 0 && !!errors.passwordRepeat} />
+                {submitCount > 0 && errors.passwordRepeat && <Error>{errors.passwordRepeat}</Error>}
+
+                <SubmitButton type="submit">Create your account</SubmitButton>
+              </StyledForm>
             )}
           </Formik>
-      
+
           <p>
             Already have an account? <Link to="/login">Login</Link>
           </p>
-        </section>
-        </main>
-       <Footer />
-       </>
-      );
-    };
-   
-  export default Register;
+        </FormSection>
+      </ContentWrapper>
+      <Footer />
+      {modalMessage && (
+        <ModalBackdrop>
+          <ModalBox>
+            <p>{modalMessage}</p>
+            <button onClick={() => setModalMessage('')}>OK</button>
+          </ModalBox>
+        </ModalBackdrop>
+      )}
+    </PageWrapper>
+  );
+};
+
+export default Register;
+
+const PageWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+`;
+
+const ContentWrapper = styled.main`
+  flex: 1;
+`;
+
+const FormSection = styled.section`
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+`;
+
+const StyledForm = styled(Form)`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`;
+
+const StyledField = styled(Field)<{ $error?: boolean }>`
+  padding: 0.6rem;
+  font-size: 1rem;
+  border-radius: 4px;
+  border: 1px solid ${({ $error }) => ($error ? 'red' : '#ccc')};
+`;
+
+const Label = styled.label`
+  font-weight: bold;
+`;
+
+const SubmitButton = styled.button`
+  padding: 0.8rem;
+  background-color: rgb(250, 70, 70);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #444;
+  }
+`;
+
+const Error = styled.p`
+  color: red;
+  font-size: 14px;
+  margin: 0;
+`;
+
+const Hint = styled.p`
+  color: #777;
+  font-size: 12px;
+  margin: 0;
+`;
+
+const ModalBackdrop = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const ModalBox = styled.div`
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  min-width: 300px;
+  text-align: center;
+  color: black;
+
+  p {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    color: black
+  }
+
+  button {
+    background-color: red;
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+`;

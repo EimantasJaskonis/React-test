@@ -33,6 +33,21 @@ const UsersProvider = ({ children }: ChildrenElementType) => {
     setLoggedInUser(null);
   };
 
+  useEffect(() => {
+    const storedUser = localStorage.getItem('loggedInUser');
+    if (storedUser) {
+      setLoggedInUser(JSON.parse(storedUser));
+    }
+  }, []);
+  
+  useEffect(() => {
+    if (loggedInUser) {
+      localStorage.setItem('loggedInUser', JSON.stringify(loggedInUser));
+    } else {
+      localStorage.removeItem('loggedInUser');
+    }
+  }, [loggedInUser]);
+  
   return (
     <UsersContext.Provider value={{ loggedInUser, setLoggedInUser, users, dispatch, logout }}>
       {children}

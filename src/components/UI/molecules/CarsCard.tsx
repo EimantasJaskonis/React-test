@@ -1,4 +1,3 @@
-// import React from 'react';
 import styled from 'styled-components';
 import { Card, CardHeader, IconButton, Avatar } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
@@ -13,7 +12,6 @@ type Props = {
   onDelete?: (id: string) => void;
   onSave?: (id: string) => void;
   onEdit?: (id: string) => void;
-  isSaved?: boolean;
 };
 
 const CarsCard = ({ card, onDelete, onSave, onEdit }: Props) => {
@@ -22,7 +20,6 @@ const CarsCard = ({ card, onDelete, onSave, onEdit }: Props) => {
 
   const { users, loggedInUser } = context;
   const creator: User | undefined = users.find((u) => u.id === card.creatorId);
-  // const isCreator = loggedInUser?.id === card.creatorId;
   const isSaved = loggedInUser?.saved?.includes(card.id);
 
   return (
@@ -30,29 +27,30 @@ const CarsCard = ({ card, onDelete, onSave, onEdit }: Props) => {
       <CardHeader
         avatar={<Avatar src={creator?.avatar || ''} />}
         title={creator?.name}
-        action={
-          loggedInUser?.id === creator?.id && (
-            <>
-              {/* <IconButton onClick={() => onEdit?.(card.id)}><EditIcon /></IconButton>
-              <IconButton onClick={() => onDelete?.(card.id)}><DeleteIcon /></IconButton> */}
-            </>
-          )
-        }
       />
       {card.pic && <Image src={card.pic} alt={card.name} />}
       <CardContent>
         <h3>{card.brand} {card.name}</h3>
         <p>Year: {card.yearOfManufacture}</p>
         <p>Engine type: {card.engine.join(', ')}</p>
-        {loggedInUser && (
-          <>
-          <IconButton onClick={() => onEdit?.(card.id)}><EditIcon /></IconButton>
-          <IconButton onClick={() => onDelete?.(card.id)}><DeleteIcon /></IconButton>
-          <IconButton onClick={() => onSave?.(card.id)}>
-            <BookmarkIcon color={isSaved ? 'primary' : 'action'} />
-          </IconButton>
-          </>
-        )}
+
+        <Actions>
+          {onEdit && (
+            <IconButton onClick={() => onEdit(card.id)}>
+              <EditIcon />
+            </IconButton>
+          )}
+          {onDelete && (
+            <IconButton onClick={() => onDelete(card.id)}>
+              <DeleteIcon />
+            </IconButton>
+          )}
+          {onSave && (
+            <IconButton onClick={() => onSave(card.id)}>
+              <BookmarkIcon color={isSaved ? 'primary' : 'action'} />
+            </IconButton>
+          )}
+        </Actions>
       </CardContent>
     </StyledCard>
   );
@@ -80,4 +78,11 @@ const Image = styled.img`
 
 const CardContent = styled.div`
   margin: auto;
+  text-align: left;
+`;
+
+const Actions = styled.div`
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
 `;

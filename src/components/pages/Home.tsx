@@ -4,30 +4,28 @@ import Header from "../UI/organism/Header";
 import Footer from "../UI/organism/Footer";
 import CarsCard from '../UI/molecules/CarsCard';
 import UsersContext from '../contexts/UsersContext';
-import { User, CardType } from '../../types';
+import { useNavigate } from "react-router";
+import { CardType } from '../../types';
 
 const Home = () => {
-  const [users, setUsers] = useState<User[]>([]);
   const [cars, setCars] = useState<CardType[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+
   const context = useContext(UsersContext);
   if (!context) throw new Error("UsersContext must be used within a Provider");
 
-const { loggedInUser } = context;
+  const { loggedInUser } = context;
+  const navigate = useNavigate();
 
   useEffect(() => {
-    Promise.all([
-      fetch("http://localhost:8080/users").then(res => res.json()),
-      fetch("http://localhost:8080/cars").then(res => res.json())
-    ])
-      .then(([usersData, carsData]) => {
-        setUsers(usersData);
-        setCars(carsData);
+    fetch("http://localhost:8080/cars")
+      .then(res => res.json())
+      .then(data => {
+        setCars(data);
         setIsLoading(false);
       })
       .catch(error => {
         console.error("Fetch error:", error);
-        setUsers([]);
         setCars([]);
         setIsLoading(false);
       });
@@ -42,45 +40,22 @@ const { loggedInUser } = context;
         {isLoading ? (
           <img src="../assets/loading.gif" alt="Loading..." />
         ) : (
-          <>
-            {users.length > 0 ? (
-              users.map(user => (
-                <div key={user.id}>
-                  <h3>{user.name || user.name}</h3>
-                  <p>{user.email}</p>
-                </div>
-              ))
-            ) : (
-              <p>No users found...</p>
-            )}
-
+          <CardGrid>
             {cars.length > 0 ? (
-              <CardGrid>
-                {cars.map((card) => (
-                  <CardWrapper key={card.id}>
-                    <CarsCard
-                      card={card}
-                      onEdit={
-                        loggedInUser?.id === card.creatorId
-                          ? (id: string ) => console.log("Edit", id)
-                          : undefined
-                      }
-                      onDelete={
-                        loggedInUser?.id === card.creatorId
-                          ? (id: string ) => console.log("Delete", id)
-                          : undefined
-                      }
-                      onSave={
-                        loggedInUser ? (id: string ) => console.log("Save", id) : undefined
-                      }
-                    />
-                  </CardWrapper>
-                ))}
-              </CardGrid>
+              cars.map((card) => (
+                <CardWrapper key={card.id}>
+                  <CarsCard
+                    card={card}
+                    onEdit={undefined}
+                    onDelete={undefined}
+                    onSave={loggedInUser ? () => {} : undefined}
+                  />
+                </CardWrapper>
+              ))
             ) : (
               <p>No cars found...</p>
             )}
-          </>
+          </CardGrid>
         )}
       </Main>
       <Footer />

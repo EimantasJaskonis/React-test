@@ -26,7 +26,39 @@
       "name": "Skyline",
       "email": "skyline@gmail.com",
       "password": "$2b$10$I94jjJhHGzAKWbrBhmsoXe4X11tR9I5Lrs./WT/vOXySXPy19MYRy",
-      "passwordText": "Opelis1234!"
+      "passwordText": "Opelis1234!",
+      "saved": [
+        "27bde6ea-dea5-459a-b5ec-8936e61a8f28"
+      ]
+    },
+    {
+      "id": "99bb72af-9756-4900-a707-f8a156b040e1",
+      "name": "Skyline",
+      "email": "skyline@gmail.com",
+      "password": "$2b$10$Uq2xvBy8wxuEjIcVRQO5eeZ6s3E99wUkAsXc/9T3UzqeyAYH23SLi",
+      "passwordText": "Obuolys1234@",
+      "role": "",
+      "saved": []
+    },
+    {
+      "id": "ab318ac6-3c31-4986-86a8-6398c61a8f7f",
+      "name": "Obuolys",
+      "email": "obuolys@gmail.com",
+      "password": "$2b$10$bBFPmr4vIMPO7fLheqYcF.y4r8GTSO3DO1HJSZSDRuaLW5BxFJSWe",
+      "passwordText": "Obuolys1234@",
+      "role": "",
+      "saved": [
+        "3d2349ac-9892-4646-ae50-a74fe56f0533"
+      ]
+    },
+    {
+      "id": "72606451-1bb5-49fd-8261-f46f08c2f398",
+      "name": "Kirvis",
+      "email": "kaminas@yahoo.com",
+      "password": "$2b$10$yl9D7eISvRIwVrw30no5/Oqu2ZTPi5IGUX08vB7UtwcORp6668so6",
+      "passwordText": "Kaminas1234@",
+      "role": "",
+      "saved": []
     }
   ],
   "cars": [
@@ -101,6 +133,70 @@
         "588 N⋅m at 3,200 - 5200 rpm"
       ],
       "pic": "https://upload.wikimedia.org/wikipedia/commons/7/7c/2018_Nissan_GT-R_Premium_in_Super_Silver%2C_Front_Right%2C_10-11-2022.jpg"
+    },
+    {
+      "id": "0e4188bc-ec89-4e2d-98d0-27687f4f4338",
+      "creatorId": "fds6g54",
+      "creatorName": "Karlsonas",
+      "creatorAvatar": "",
+      "createdAt": "2025-04-18T05:56:54.796Z",
+      "brand": "Nissan",
+      "name": "Silvia S15",
+      "yearOfManufacture": "1999 - 2002",
+      "engine": [
+        "2.0 L SR20DET I4 turbo",
+        "184 kW (247 hp) at 6,400 rpm",
+        "275 N⋅m at 4,800 rpm"
+      ],
+      "pic": "https://upload.wikimedia.org/wikipedia/commons/7/77/The_frontview_of_Nissan_Silvia_spec_S_%28S15%29.JPG"
+    },
+    {
+      "id": "27bde6ea-dea5-459a-b5ec-8936e61a8f28",
+      "creatorId": "940a96d7-c2a6-45a6-83f8-04968a192aca",
+      "creatorName": "Skyline",
+      "creatorAvatar": "",
+      "createdAt": "2025-04-18T07:04:28.287Z",
+      "brand": "Nissan",
+      "name": "Silvia S14",
+      "yearOfManufacture": "1994 – 2000 ",
+      "engine": [
+        "2.0 L SR20DET I4 turbo",
+        "162 kW (217 hp) at 6.000 rpm",
+        " 274 N⋅m at 4.800 rpm"
+      ],
+      "pic": "https://upload.wikimedia.org/wikipedia/commons/0/0d/Nissan_200SX_%289639982223%29.jpg"
+    },
+    {
+      "id": "3d2349ac-9892-4646-ae50-a74fe56f0533",
+      "creatorId": "ab318ac6-3c31-4986-86a8-6398c61a8f7f",
+      "creatorName": "Obuolys",
+      "creatorAvatar": "",
+      "createdAt": "2025-04-18T09:16:01.365Z",
+      "brand": "Mitsubishi",
+      "name": "Lancer Evo 6",
+      "yearOfManufacture": "1999 - 2001",
+      "engine": [
+        "2.0 L 4G63 Inline-four engine Turbocharged",
+        "206 kw (276 hp) at 6,500 rpm",
+        "373 N⋅m at 3,000 rpm."
+      ],
+      "pic": "https://upload.wikimedia.org/wikipedia/commons/8/8a/1999_Mitsubishi_Evo_VI_%282%29.jpg"
+    },
+    {
+      "id": "36f39b39-3dfc-4823-a7ed-e3a78a888f9d",
+      "creatorId": "72606451-1bb5-49fd-8261-f46f08c2f398",
+      "creatorName": "Kirvis",
+      "creatorAvatar": "",
+      "createdAt": "2025-04-18T09:33:56.972Z",
+      "brand": "Toyota",
+      "name": "Supra A80",
+      "yearOfManufacture": "1993 - 2002",
+      "engine": [
+        "3.0 2JZ-GTE twin-turbo I6",
+        "239 kW (321 hp) at 5,600 rpm",
+        "427 N⋅m at 4,000 rpm"
+      ],
+      "pic": "https://upload.wikimedia.org/wikipedia/commons/7/72/1994_Toyota_Supra_Sport_Roof_in_Red%2C_front_left.jpg"
     }
   ]
 }

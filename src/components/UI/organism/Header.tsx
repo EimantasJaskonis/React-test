@@ -31,6 +31,7 @@ const Header = () => {
             <span>{loggedInUser.name}</span>
             <button onClick={handleLogout}>Logout</button>
             <ButtonLink to="/add">Add Car</ButtonLink>
+            <ButtonLink to="/user">User</ButtonLink>
           </UserInfo>
         ) : (
           <LinkGroup>

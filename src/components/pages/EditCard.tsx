@@ -1,18 +1,18 @@
-import React, { useState, useContext } from 'react';
-import { useNavigate } from 'react-router';
+import { useContext, useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router';
 import styled from 'styled-components';
 import Header from '../UI/organism/Header';
 import Footer from '../UI/organism/Footer';
 import UsersContext from '../contexts/UsersContext';
 import { CardType } from '../../types';
-import { v4 as generateID } from 'uuid';
 
-const Add = () => {
+const EditCard = () => {
+  const { id } = useParams();
+  const navigate = useNavigate();
   const context = useContext(UsersContext);
-  if (!context) throw new Error('Add must be used within a UsersProvider');
+  if (!context) throw new Error('UsersContext must be used within a Provider');
 
   const { loggedInUser } = context;
-  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     brand: '',
@@ -24,6 +24,36 @@ const Add = () => {
     pic: '',
   });
 
+  useEffect(() => {
+    const fetchCard = async () => {
+      try {
+        const res = await fetch(`http://localhost:8080/cars/${id}`);
+        if (!res.ok) throw new Error('Failed to fetch card data');
+        const data: CardType = await res.json();
+
+        if (data.creatorId !== loggedInUser?.id) {
+          navigate('/');
+          return;
+        }
+
+        setFormData({
+          brand: data.brand,
+          name: data.name,
+          yearOfManufacture: data.yearOfManufacture,
+          engine: data.engine[0] || '',
+          power: data.engine[1] || '',
+          torgue: data.engine[2] || '',
+          pic: data.pic || '',
+        });
+      } catch (err) {
+        console.error('Error loading card:', err);
+        navigate('/');
+      }
+    };
+
+    fetchCard();
+  }, [id, loggedInUser, navigate]);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData(prev => ({
       ...prev,
@@ -33,13 +63,12 @@ const Add = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!loggedInUser) return;
 
-    const newCard: CardType = {
-      id: generateID(),
-      creatorId: loggedInUser.id,
-      creatorName: loggedInUser.name,
-      creatorAvatar: loggedInUser.avatar || '',
+    const updatedCard: CardType = {
+      id: id!,
+      creatorId: loggedInUser!.id,
+      creatorName: loggedInUser!.name,
+      creatorAvatar: loggedInUser!.avatar || '',
       createdAt: new Date().toISOString(),
       brand: formData.brand,
       name: formData.name,
@@ -49,36 +78,24 @@ const Add = () => {
     };
 
     try {
-      const res = await fetch('http://localhost:8080/cars', {
-        method: 'POST',
+      const res = await fetch(`http://localhost:8080/cars/${id}`, {
+        method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(newCard),
+        body: JSON.stringify(updatedCard),
       });
 
-      if (!res.ok) throw new Error('Failed to add car');
+      if (!res.ok) throw new Error('Failed to update car');
       navigate('/');
-    } catch (error) {
-      console.error('Submit error:', error);
+    } catch (err) {
+      console.error('Update error:', err);
     }
   };
-
-  if (!loggedInUser) {
-    return (
-      <>
-        <Header />
-        <Main>
-          <p>You must be logged in to add a car.</p>
-        </Main>
-        <Footer />
-      </>
-    );
-  }
 
   return (
     <>
       <Header />
       <FormWrapper onSubmit={handleSubmit}>
-        <h2>Add New Car</h2>
+        <h2>Edit Car</h2>
         <Input
           name="brand"
           placeholder="Brand"
@@ -127,18 +144,14 @@ const Add = () => {
           value={formData.pic}
           onChange={handleChange}
         />
-        <SubmitButton type="submit">Add Car</SubmitButton>
+        <SubmitButton type="submit">Save Changes</SubmitButton>
       </FormWrapper>
       <Footer />
     </>
   );
 };
 
-export default Add;
-
-const Main = styled.main`
-  padding: 20px;
-`;
+export default EditCard;
 
 const FormWrapper = styled.form`
   max-width: 500px;
